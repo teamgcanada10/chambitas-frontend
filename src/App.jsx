@@ -13,7 +13,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Admin from './pages/Admin';
-import VerifyEmail from './pages/VerifyEmail';
+import VerifyEmail from './pages/VerifyEmail'; // Import the new page
 
 function App() {
   return (
@@ -46,7 +46,7 @@ function App() {
       {/* Standalone routes (no main layout) */}
       <Route path="/login" element={<Login />} />
       <Route path="/registro" element={<Register />} />
-      <Route path="/verify-email" element={<VerifyEmail />} />
+      <Route path="/verify-email" element={<VerifyEmail />} /> {/* Add the new route */}
 
     </Routes>
   );

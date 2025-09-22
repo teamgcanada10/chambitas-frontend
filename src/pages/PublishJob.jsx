@@ -62,7 +62,7 @@ Ya cuento con la pintura y las herramientas necesarias, así que solo se requier
                             <div className="flex justify-between items-center">
                                 <Label className="flex items-center gap-2">Descripción</Label>
                                 <Button variant="outline" size="sm" className="rounded-full text-xs" onClick={generateDescription} disabled={isGenerating}>
-                                    {isGenerating ? <Loader className="w-4 h-4 mr-2 animate-spin" /> : <Sparkles className="w-4 h-4 mr-2 text-purple-400" />}
+                                    {isGenerating ? <Loader className="w-4 h-4 mr-2 animate-spin" /> : <Sparkles className="w-4 h-4 mr-2 text-primary-400" />}
                                     Generar con IA ✨
                                 </Button>
                             </div>

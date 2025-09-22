@@ -13,7 +13,12 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Admin from './pages/Admin';
-import VerifyEmail from './pages/VerifyEmail'; // Import the new page
+import VerifyEmail from './pages/VerifyEmail';
+import ForgotPassword from './pages/ForgotPassword'; // Import the new page
+
+import Anuncios from './pages/Anuncios';
+import Chambas from './pages/Chambas';
+import TopChamberos from './pages/TopChamberos';
 
 function App() {
   return (
@@ -22,6 +27,9 @@ function App() {
       <Route path="/" element={<Layout />}>
         {/* Public Route */}
         <Route index element={<Home />} />
+        <Route path="anuncia" element={<Anuncios />} />
+        <Route path="chambas" element={<Chambas />} />
+        <Route path="top-chamberos" element={<TopChamberos />} />
 
         {/* Protected Routes for standard users */}
         <Route element={<ProtectedRoute />}>
@@ -46,7 +54,8 @@ function App() {
       {/* Standalone routes (no main layout) */}
       <Route path="/login" element={<Login />} />
       <Route path="/registro" element={<Register />} />
-      <Route path="/verify-email" element={<VerifyEmail />} /> {/* Add the new route */}
+      <Route path="/verify-email" element={<VerifyEmail />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} /> {/* Add the new route */}
 
     </Routes>
   );

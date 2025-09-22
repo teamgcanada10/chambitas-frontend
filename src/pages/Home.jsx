@@ -1,32 +1,196 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { CheckCircle2, Sparkles, ShieldCheck, Star, Coins, HeartHandshake, Briefcase, Quote } from "lucide-react";
-import { Card, CardHeader, CardContent, CardFooter, GradientCard, Button } from "../components/ui";
+import { CheckCircle2, Sparkles, ShieldCheck, Star, Coins, HeartHandshake, Briefcase, Quote, Wrench, Paintbrush } from "lucide-react";
+import { Card, CardHeader, CardContent, CardFooter, Button } from "../components/ui";
+import { GradientCard } from "../components/ui";
+
+
+const completedJobs = [
+  {
+    id: 1,
+    title: "Reparación de fuga de agua",
+    description: "Se reparó una fuga en la tubería principal de la cocina. Trabajo rápido y limpio.",
+    image: "https://images.unsplash.com/photo-1587997490283-5622c557ed08?w=500&h=500&fit=crop&q=80",
+    worker: "Juan P.",
+    jobsDone: 12,
+    rating: 4.8,
+  },
+  {
+    id: 2,
+    title: "Pintado de habitación",
+    description: "Se pintó una habitación de 12m² con dos capas de pintura plástica. Acabado perfecto.",
+    image: "https://images.unsplash.com/photo-1596495577881-e615b0e6a7e8?w=500&h=500&fit=crop&q=80",
+    worker: "Maria G.",
+    jobsDone: 8,
+    rating: 4.9,
+  },
+  {
+    id: 3,
+    title: "Instalación de cerradura",
+    description: "Instalación de cerradura de seguridad en puerta principal.",
+    image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=500&h=500&fit=crop&q=60",
+    worker: "Carlos M.",
+    jobsDone: 25,
+    rating: 4.7,
+  },
+  {
+    id: 4,
+    title: "Armado de mueble",
+    description: "Armado de ropero de 6 puertas. Se dejó todo limpio.",
+    image: "https://images.unsplash.com/photo-1600122312255-cb30b8dfa835?w=500&h=500&fit=crop&q=60",
+    worker: "Ana R.",
+    jobsDone: 6,
+    rating: 5.0,
+  },
+  {
+    id: 5,
+    title: "Limpieza de alfombra",
+    description: "Limpieza profunda de alfombra de sala. Quedó como nueva.",
+    image: "https://images.unsplash.com/photo-1516116216624-53e697320f34?w=500&h=500&fit=crop&q=60",
+    worker: "Luis F.",
+    jobsDone: 15,
+    rating: 4.6,
+  },
+];
+
+const jobAnnouncements = [
+  {
+    id: 1,
+    title: "Se necesita jardinero",
+    description: "Para mantenimiento de jardín pequeño en Miraflores.",
+    payment: "S/ 50 por hora",
+    image: "https://images.unsplash.com/photo-1558611848-73f7eb4001a1?w=500&h=500&fit=crop&q=80",
+  },
+  {
+    id: 2,
+    title: "Limpieza de departamento",
+    description: "Limpieza profunda de departamento de 2 habitaciones en San Isidro.",
+    payment: "S/ 120",
+    image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=500&h=500&fit=crop&q=80",
+  },
+  {
+    id: 3,
+    title: "Paseador de perros",
+    description: "Paseo de 1 hora para perro mediano en Surco.",
+    payment: "S/ 25 por paseo",
+    image: "https://images.unsplash.com/photo-1537151608828-3b2f2ba24c69?w=500&h=500&fit=crop&q=60",
+  },
+  {
+    id: 4,
+    title: "Clases de guitarra",
+    description: "Clases particulares de guitarra para principiantes.",
+    payment: "S/ 70 por hora",
+    image: "https://images.unsplash.com/photo-1550291652-6ea9114a47b1?w=500&h=500&fit=crop&q=60",
+  },
+  {
+    id: 5,
+    title: "Soporte técnico para laptop",
+    description: "Formateo e instalación de programas en laptop.",
+    payment: "S/ 150",
+    image: "https://images.unsplash.com/photo-1589422332093-3c2175a83823?w=500&h=500&fit=crop&q=60",
+  },
+];
+
+const CompletedJob = ({ job }) => (
+  <motion.div
+    key={job.id}
+    initial={{ opacity: 0, x: -50 }}
+    animate={{ opacity: 1, x: 0 }}
+    exit={{ opacity: 0, x: 50 }}
+    transition={{ duration: 0.5 }}
+    className="flex items-center gap-4 p-4 rounded-lg glassmorphism"
+  >
+    <img src={job.image} alt={job.title} className="w-24 h-24 rounded-md object-cover" />
+    <div>
+      <h4 className="font-bold text-lg text-slate-900 dark:text-slate-100">{job.title}</h4>
+      <p className="text-sm text-slate-600 dark:text-slate-400">{job.description}</p>
+      <div className="flex items-center gap-4 mt-2">
+        <div>
+          <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">{job.worker}</p>
+          <p className="text-xs text-slate-500 dark:text-slate-400">{job.jobsDone} trabajos</p>
+        </div>
+        <div className="flex items-center gap-1 text-amber-400">
+          <Star size={16} fill="currentColor" />
+          <span className="font-bold text-sm">{job.rating.toFixed(1)}</span>
+        </div>
+      </div>
+    </div>
+  </motion.div>
+);
+
+const JobAnnouncement = ({ announcement }) => (
+  <motion.div
+    key={announcement.id}
+    initial={{ opacity: 0, x: 50 }}
+    animate={{ opacity: 1, x: 0 }}
+    exit={{ opacity: 0, x: -50 }}
+    transition={{ duration: 0.5 }}
+    className="flex items-center gap-4 p-4 rounded-lg glassmorphism"
+  >
+    <img src={announcement.image} alt={announcement.title} className="w-24 h-24 rounded-md object-cover" />
+    <div>
+      <h4 className="font-bold text-lg text-slate-900 dark:text-slate-100">{announcement.title}</h4>
+      <p className="text-sm text-slate-600 dark:text-slate-400">{announcement.description}</p>
+      <p className="text-sm font-bold text-primary-600 dark:text-primary-400 mt-2">{announcement.payment}</p>
+    </div>
+  </motion.div>
+);
+
+const carouselImages = [
+  "/visual/1.png",
+  "/visual/2.png",
+  "/visual/3.png",
+  "/visual/4.png",
+  "/visual/5.png",
+  "/visual/6.png"
+];
 
 export default function Home() {
     const [pagos, setPagos] = useState(9850);
+    const [currentJobIndex, setCurrentJobIndex] = useState(0);
+    const [currentAnnouncementIndex, setCurrentAnnouncementIndex] = useState(0);
+    const [currentImageIndex, setCurrentImageIndex] = useState(0); // New state for carousel
     const navigate = useNavigate();
 
     useEffect(() => {
-      const interval = setInterval(() => {
+      const pagosInterval = setInterval(() => {
           setPagos(prev => prev + (Math.floor(Math.random() * 5) + 1));
       }, 5500);
-      return () => clearInterval(interval);
+
+      const jobsInterval = setInterval(() => {
+        setCurrentJobIndex(prev => (prev + 1) % completedJobs.length);
+      }, 5000);
+
+      const announcementsInterval = setInterval(() => {
+        setCurrentAnnouncementIndex(prev => (prev + 1) % jobAnnouncements.length);
+      }, 5000);
+
+      // New interval for image carousel
+      const imageCarouselInterval = setInterval(() => {
+        setCurrentImageIndex(prev => (prev + 1) % carouselImages.length);
+      }, 7000); // Change image every 7 seconds
+
+      return () => {
+        clearInterval(pagosInterval);
+        clearInterval(jobsInterval);
+        clearInterval(announcementsInterval);
+        clearInterval(imageCarouselInterval); // Clear new interval
+      };
     }, []);
 
     return (
     <div>
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
-        <Card className={`rounded-2xl shadow-xl backdrop-blur-lg bg-slate-100/60 dark:bg-slate-800/60 border-slate-200/50 dark:border-slate-700/50 border-0 overflow-hidden`}>
-          <CardHeader className="text-center p-8 bg-slate-200/50 dark:bg-slate-900/50">
+        <Card>
+          <CardHeader className="text-center p-8 bg-transparent">
               <motion.h2 
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.7, delay: 0.2 }}
                 className="text-4xl md:text-5xl font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-700 dark:from-slate-50 dark:to-slate-400"
               >
-                Encuentra la ayuda que necesitas.
+                Encuentra lo que buscas, ofrece lo que sabes
               </motion.h2>
               <motion.p 
                 initial={{ y: 20, opacity: 0 }}
@@ -38,13 +202,28 @@ export default function Home() {
               </motion.p>
           </CardHeader>
           <CardContent className="space-y-12 p-6 md:p-10">
+            {/* Image Carousel Section - MOVED HERE */}
+            <div className="relative w-full h-96 overflow-hidden rounded-2xl mb-6 shadow-xl">
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={currentImageIndex}
+                  src={carouselImages[currentImageIndex]}
+                  alt="Chambitas Carousel"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 1.5 }}
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+              </AnimatePresence>
+            </div>
               <motion.div 
                 initial={{ scale: 0.95, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.7, delay: 0.6 }}
-                className="text-center p-8 rounded-2xl bg-gradient-to-br from-purple-600/10 via-slate-100/50 to-slate-100/50 dark:from-purple-600/20 dark:via-slate-900/50 dark:to-slate-900/50 border border-purple-500/20 dark:border-purple-500/30 shadow-inner"
+                className="text-center p-8 rounded-2xl bg-gradient-to-br from-primary-600/10 via-slate-100/50 to-slate-100/50 dark:from-primary-600/20 dark:via-slate-900/50 dark:to-slate-900/50 border border-primary-500/20 dark:border-primary-500/30 shadow-inner"
               >
-                <p className="text-sm font-medium text-purple-600 dark:text-purple-300 tracking-wider">TOTAL DISTRIBUIDO A NUESTRA COMUNIDAD</p>
+                <p className="text-sm font-medium text-primary-600 dark:text-primary-300 tracking-wider">TOTAL DISTRIBUIDO A NUESTRA COMUNIDAD</p>
                 <motion.div 
                   className="text-6xl font-bold text-slate-900 dark:text-slate-50 tracking-tight mt-2"
                   transition={{ duration: 1.5 }}
@@ -56,13 +235,29 @@ export default function Home() {
               </motion.div>
 
               <div className="grid md:grid-cols-2 gap-8">
+                <div>
+                  <h3 className="text-center text-2xl font-bold text-slate-900 dark:text-slate-100 mb-4">Chambas Terminadas</h3>
+                  <AnimatePresence mode="wait">
+                    <CompletedJob job={completedJobs[currentJobIndex]} />
+                  </AnimatePresence>
+                </div>
+                <div>
+                  <h3 className="text-center text-2xl font-bold text-slate-900 dark:text-slate-100 mb-4">Anuncios de Trabajos</h3>
+                  <AnimatePresence mode="wait">
+                    <JobAnnouncement announcement={jobAnnouncements[currentAnnouncementIndex]} />
+                  </AnimatePresence>
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-8">
                   <motion.div
                     initial={{ x: -50, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ duration: 0.7, delay: 0.8 }}
+                    className="animate-float"
                   >
                     <GradientCard>
-                      <h3 className="font-semibold text-2xl flex items-center gap-3 text-slate-900 dark:text-slate-100"><HeartHandshake size={24} className="text-purple-500 dark:text-purple-400" /> Para quienes contratan</h3>
+                      <h3 className="font-semibold text-2xl flex items-center gap-3 text-slate-900 dark:text-slate-100"><HeartHandshake size={24} className="text-primary-500 dark:text-primary-400" /> Para quienes contratan</h3>
                       <ul className="space-y-4 text-md text-slate-700 dark:text-slate-300 mt-4">
                         <li className="flex items-start gap-3"><CheckCircle2 size={20} className="text-emerald-500 mt-1 flex-shrink-0" /> <span>Encuentra ayuda para esas **chambitas del día a día**.</span></li>
                         <li className="flex items-start gap-3"><ShieldCheck size={20} className="text-emerald-500 mt-1 flex-shrink-0" /> <span>**Perfiles validados con RENIEC** para tu máxima tranquilidad.</span></li>
@@ -74,9 +269,10 @@ export default function Home() {
                     initial={{ x: 50, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ duration: 0.7, delay: 0.8 }}
+                    className="animate-float"
                   >
                     <GradientCard>
-                        <h3 className="font-semibold text-2xl flex items-center gap-3 text-slate-900 dark:text-slate-100"><Briefcase size={24} className="text-purple-500 dark:text-purple-400" /> Para quienes trabajan</h3>
+                        <h3 className="font-semibold text-2xl flex items-center gap-3 text-slate-900 dark:text-slate-100"><Briefcase size={24} className="text-primary-500 dark:text-primary-400" /> Para quienes trabajan</h3>
                         <ul className="space-y-4 text-md text-slate-700 dark:text-slate-300 mt-4">
                           <li className="flex items-start gap-3"><CheckCircle2 size={20} className="text-emerald-500 mt-1 flex-shrink-0" /> <span>Encuentra **chambitas con horarios flexibles** cerca de ti.</span></li>
                           <li className="flex items-start gap-3"><Star size={20} className="text-emerald-500 mt-1 flex-shrink-0" /> <span>Construye tu reputación y accede a mejores oportunidades.</span></li>
@@ -94,8 +290,8 @@ export default function Home() {
               >
                 <h3 className="text-center text-3xl font-bold text-slate-900 dark:text-slate-100 mb-8 tracking-tight">Lo que dicen nuestros usuarios</h3>
                 <div className="grid md:grid-cols-2 gap-8">
-                  <div className="p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-100/50 dark:bg-slate-900/50 flex flex-col relative">
-                    <Quote className="absolute top-4 left-4 text-purple-500/10 dark:text-purple-500/20" size={48} />
+                  <div className="p-6 rounded-2xl glassmorphism flex flex-col relative">
+                    <Quote className="absolute top-4 left-4 text-primary-500/10 dark:text-primary-500/20" size={48} />
                     <p className="text-slate-700 dark:text-slate-300 text-md italic flex-grow z-10">"Con toda esta inseguridad que vivimos, 'Chambitas' nos ofrece saber a qué personas permitimos entrar en nuestra casa. La verificación con RENIEC y las reseñas de otros usuarios me dan la confianza que necesito para contratar. ¡Es un cambio total!"</p>
                     <div className="flex items-center gap-4 mt-6 pt-6 border-t border-slate-200 dark:border-slate-700 z-10">
                       <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=80&h=80&q=80" alt="Mariana V." className="h-12 w-12 rounded-full object-cover"/>
@@ -107,8 +303,8 @@ export default function Home() {
                       </div>
                     </div>
                   </div>
-                  <div className="p-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-100/50 dark:bg-slate-900/50 flex flex-col relative">
-                     <Quote className="absolute top-4 left-4 text-purple-500/10 dark:text-purple-500/20" size={48} />
+                  <div className="p-6 rounded-2xl glassmorphism flex flex-col relative">
+                     <Quote className="absolute top-4 left-4 text-primary-500/10 dark:text-primary-500/20" size={48} />
                      <p className="text-slate-700 dark:text-slate-300 text-md italic flex-grow z-10">"Gracias a Chambitas, consigo trabajos extra cerca de mi casa y en mis tiempos libres. La app es súper fácil de usar y el sistema de comisiones que baja con mi reputación me motiva a dar siempre lo mejor. ¡Recomendado!"</p>
                      <div className="flex items-center gap-4 mt-6 pt-6 border-t border-slate-200 dark:border-slate-700 z-10">
                       <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=80&h=80&q=80" alt="Javier L." className="h-12 w-12 rounded-full object-cover"/>
@@ -124,14 +320,14 @@ export default function Home() {
               </motion.div>
               
           </CardContent>
-          <CardFooter className="justify-center p-8 bg-slate-200/50 dark:bg-slate-900/50">
+          <CardFooter className="justify-center p-8 bg-transparent">
               <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.7, delay: 1.2, type: 'spring', stiffness: 200 }}
               >
                 <Button 
-                  className="rounded-full w-full sm:w-auto text-lg font-bold py-8 px-10 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 shadow-lg shadow-purple-500/20 transform hover:scale-105 transition-transform" 
+                  className="rounded-full w-full sm:w-auto text-lg font-bold py-8 px-10 bg-gradient-to-r from-primary-600 to-primary-600 hover:from-primary-700 hover:to-primary-700 shadow-lg shadow-primary-500/20 transform hover:scale-105 transition-transform" 
                   onClick={() => navigate('/publicar')}
                 >
                   ¡Publica tu primera chamba gratis!

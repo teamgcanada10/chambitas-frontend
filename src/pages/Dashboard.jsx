@@ -42,7 +42,7 @@ export default function Dashboard() {
                     {user.roles.includes('client') && (
                         <RoleCard 
                             role="client"
-                            icon={<User size={40} className="mx-auto text-purple-500"/>}
+                            icon={<User size={40} className="mx-auto text-primary-500"/>}
                             title="Soy Cliente"
                             description="Quiero contratar a un profesional para una chamba."
                         />
@@ -50,7 +50,7 @@ export default function Dashboard() {
                     {user.roles.includes('worker') && (
                         <RoleCard 
                             role="worker"
-                            icon={<Briefcase size={40} className="mx-auto text-purple-500"/>}
+                            icon={<Briefcase size={40} className="mx-auto text-primary-500"/>}
                             title="Soy Trabajador"
                             description="Estoy buscando oportunidades de trabajo y chambitas."
                         />

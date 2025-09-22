@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Card, CardHeader, CardContent, CardFooter, Label, Input, Button } from '../components/ui';
 import { useAuth } from '../contexts/AuthContext';
+import { Eye, EyeOff } from 'lucide-react';
 
 export default function Register() {
     const [name, setName] = useState('');
@@ -10,6 +11,7 @@ export default function Register() {
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const { register } = useAuth();
 
     const handleSubmit = async (e) => {
@@ -66,13 +68,23 @@ export default function Register() {
                                     </div>
                                     <div className="grid gap-2">
                                         <Label htmlFor="password">Contraseña</Label>
-                                        <Input 
-                                            id="password" 
-                                            type="password" 
-                                            value={password}
-                                            onChange={(e) => setPassword(e.target.value)}
-                                            required
-                                        />
+                                        <div className="relative">
+                                            <Input 
+                                                id="password" 
+                                                type={showPassword ? 'text' : 'password'}
+                                                value={password}
+                                                onChange={(e) => setPassword(e.target.value)}
+                                                required
+                                                className="pr-10"
+                                            />
+                                            <button
+                                                type="button"
+                                                className="absolute inset-y-0 right-0 flex items-center px-3 text-gray-500"
+                                                onClick={() => setShowPassword(!showPassword)}
+                                            >
+                                                {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                                            </button>
+                                        </div>
                                     </div>
                                     {error && <p className="text-sm text-red-500 dark:text-red-400 text-center">{error}</p>}
                                 </>
@@ -82,7 +94,7 @@ export default function Register() {
                             {!message && <Button type="submit" className="w-full">Registrarse</Button>}
                             <p className="text-xs text-center text-slate-500 dark:text-slate-400">
                                 ¿Ya tienes una cuenta?{' '}
-                                <Link to="/login" className="underline font-medium hover:text-purple-600 dark:hover:text-purple-400">
+                                <Link to="/login" className="underline font-medium hover:text-primary-600 dark:hover:text-primary-400">
                                     Inicia sesión
                                 </Link>
                             </p>

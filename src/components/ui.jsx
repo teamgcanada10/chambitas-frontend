@@ -27,7 +27,7 @@ const CardFooter = forwardRef(({ className, ...props }, ref) => (
 CardFooter.displayName = "CardFooter";
 
 const GradientCard = ({ children, className }) => (
-    <div className={cn("p-0.5 rounded-2xl bg-gradient-to-b from-purple-500/50 to-slate-300/50 dark:to-slate-800/50", className)}>
+    <div className={cn("p-0.5 rounded-2xl bg-gradient-to-b from-primary-500/50 to-slate-300/50 dark:to-slate-800/50", className)}>
       <div className="p-6 bg-slate-50 dark:bg-slate-900 rounded-[15px] h-full">
         {children}
       </div>
@@ -36,7 +36,7 @@ const GradientCard = ({ children, className }) => (
 
 const Button = forwardRef(({ className, variant = "default", size = "default", ...props }, ref) => {
   const variants = {
-    default: "bg-purple-600 text-white hover:bg-purple-600/90",
+    default: "bg-primary-600 text-white hover:bg-primary-600/90",
     secondary: "bg-slate-200 text-slate-800 hover:bg-slate-200/80 dark:bg-slate-700 dark:text-slate-100 dark:hover:bg-slate-700/80",
     outline: "border border-slate-300 dark:border-slate-700 bg-transparent hover:bg-slate-100 dark:hover:bg-slate-800",
   };
@@ -57,7 +57,7 @@ Button.displayName = "Button";
 const Input = forwardRef(({ className, type, ...props }, ref) => (
   <input
     type={type}
-    className={cn("flex h-10 w-full rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-sm text-slate-900 dark:text-slate-100 ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-slate-500 dark:placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50", className)}
+    className={cn("flex h-10 w-full rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-sm text-slate-900 dark:text-slate-100 ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-slate-500 dark:placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50", className)}
     ref={ref}
     {...props}
   />
@@ -104,7 +104,7 @@ TabsContent.displayName = "TabsContent";
 
 const Textarea = forwardRef(({ className, ...props }, ref) => (
   <textarea
-    className={cn("flex min-h-[80px] w-full rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-sm ring-offset-background placeholder:text-slate-500 dark:placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50", className)}
+    className={cn("flex min-h-[80px] w-full rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-sm ring-offset-background placeholder:text-slate-500 dark:placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50", className)}
     ref={ref}
     {...props}
   />
@@ -116,13 +116,13 @@ const Slider = forwardRef(({ className, value, onValueChange, ...props }, ref) =
         <div className="relative w-full h-5 flex items-center">
             <div className="relative w-full h-1.5 bg-slate-300 dark:bg-slate-700 rounded-full">
                 <div 
-                  className="absolute h-1.5 bg-purple-500 rounded-full"
+                  className="absolute h-1.5 bg-primary-500 rounded-full"
                   style={{ left: `${((value[0] - props.min) / (props.max - props.min)) * 100}%`, right: `${100 - ((value[1] - props.min) / (props.max - props.min)) * 100}%` }}
                 ></div>
                 <input type="range" value={value[0]} onChange={(e) => onValueChange([parseFloat(e.target.value), value[1]])} className="absolute w-full h-1.5 opacity-0 cursor-pointer" {...props} />
-                <div className="absolute w-4 h-4 bg-white dark:bg-slate-800 border-2 border-purple-500 rounded-full -translate-x-1/2 -top-1.5" style={{ left: `${((value[0] - props.min) / (props.max - props.min)) * 100}%` }}></div>
+                <div className="absolute w-4 h-4 bg-white dark:bg-slate-800 border-2 border-primary-500 rounded-full -translate-x-1/2 -top-1.5" style={{ left: `${((value[0] - props.min) / (props.max - props.min)) * 100}%` }}></div>
                 <input type="range" value={value[1]} onChange={(e) => onValueChange([value[0], parseFloat(e.target.value)])} className="absolute w-full h-1.5 opacity-0 cursor-pointer" {...props} />
-                <div className="absolute w-4 h-4 bg-white dark:bg-slate-800 border-2 border-purple-500 rounded-full -translate-x-1/2 -top-1.5" style={{ left: `${((value[1] - props.min) / (props.max - props.min)) * 100}%` }}></div>
+                <div className="absolute w-4 h-4 bg-white dark:bg-slate-800 border-2 border-primary-500 rounded-full -translate-x-1/2 -top-1.5" style={{ left: `${((value[1] - props.min) / (props.max - props.min)) * 100}%` }}></div>
             </div>
         </div>
     );
@@ -131,7 +131,7 @@ Slider.displayName = "Slider";
 
 const Badge = forwardRef(({ className, variant = "default", ...props }, ref) => {
     const variants = {
-        default: "border-transparent bg-purple-600 text-purple-50",
+        default: "border-transparent bg-primary-600 text-primary-50",
         secondary: "border-transparent bg-slate-200 text-slate-900 dark:bg-slate-800 dark:text-slate-100",
         outline: "text-slate-700 dark:text-slate-200 border-slate-300 dark:border-slate-700",
     };

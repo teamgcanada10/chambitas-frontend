@@ -6,6 +6,8 @@ import { useAuth } from "../../contexts/AuthContext";
 import { ThemeToggle } from '../ThemeToggle';
 import { Button } from '../ui';
 
+import Footer from './Footer';
+
 // This is the new NavLink component that mimics the old style
 const TabLink = ({ to, children }) => {
     const activeClass = "bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-50 shadow-sm";
@@ -29,71 +31,57 @@ export default function Layout() {
 
     return (
         <div className={`min-h-screen p-4 sm:p-6 md:p-10 font-sans`}>
-            {/* Background Video */}
-            <video
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="fixed top-0 left-0 w-full h-full object-cover -z-10 filter blur-sm scale-110"
-                src="https://videos.pexels.com/video-files/4782135/4782135-hd_1920_1080_25fps.mp4" // Example video, recommend hosting locally
-            />
+            
 
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="max-w-6xl mx-auto relative z-10">
-                <header className="mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                    <div>
-                        <div className="flex items-center gap-3">
-                            <div className="w-12 h-12 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-xl flex items-center justify-center shadow-md">
-                                <Building className="text-purple-500" />
-                            </div>
-                            <div>
-                                <h1 className="text-3xl md:text-4xl font-semibold tracking-tight text-slate-900 dark:text-white">Chambitas</h1>
-                                <p className="text-sm md:text-base text-slate-600 dark:text-slate-400">Tu marketplace de confianza</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="flex items-center gap-4">
-                        <ThemeToggle />
-                        {isAuthenticated ? (
-                            <>
-                                <div className="text-right">
-                                    <div className="text-sm font-medium text-slate-800 dark:text-slate-200">{user.name}</div>
-                                    <div className="text-xs text-slate-500 dark:text-slate-400">{isAdmin ? 'Admin' : 'Usuario'}</div>
-                                </div>
-                                <img src={user.imageUrl} alt={user.name} className="w-10 h-10 rounded-full" />
-                                <Button variant="outline" size="sm" onClick={logout} className="rounded-full w-10 h-10 p-0">
-                                    <LogOut size={16} />
-                                </Button>
-                            </>
-                        ) : (
-                            <div className="flex items-center gap-2">
-                                <Button asChild variant="outline"><Link to="/login">Iniciar Sesión</Link></Button>
-                                <Button asChild><Link to="/registro">Registrarse</Link></Button>
-                            </div>
-                        )}
-                    </div>
-                </header>
+                <header className="mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4 rounded-lg glassmorphism">
+    {/* Logo and Slogan */}
+    <div className="flex items-center">
+        <img src="/Chambitas.png" alt="Chambitas Logo" className="w-32 h-32" /> {/* Increased size */}
+        <div className="ml-4"> {/* Added margin-left for spacing */}
+            <p className="text-sm md:text-base text-slate-600 dark:text-slate-400">Conectamos necesidades con oportunidades</p>
+        </div>
+    </div>
 
-                {/* Navigation Tabs are now conditional */}
-                {isAuthenticated && (
-                    <nav className="inline-flex h-auto sm:h-10 items-center justify-center rounded-md bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm p-1 w-full mb-4">
-                        <div className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-5">
-                            <TabLink to="/">Inicio</TabLink>
-                            <TabLink to="/dashboard">Dashboard</TabLink>
-                            <TabLink to="/publicar">Publicar Chamba</TabLink>
-                            {/* Add more role-specific links here */}
-                            {isAdmin && <TabLink to="/admin">Admin</TabLink>}
-                        </div>
-                    </nav>
-                )}
+    {/* Main Navigation and Auth/Profile Section */}
+    <div className="flex items-center gap-4">
+        {/* New Navigation Links */}
+        <nav className="flex items-center gap-4">
+            <TabLink to="/chambas">Chambas</TabLink>
+            <TabLink to="/anuncia">Anuncia</TabLink>
+            <TabLink to="/top-chamberos">Top Chamberos</TabLink>
+        </nav>
+
+        {/* Theme Toggle */}
+        <ThemeToggle />
+
+        {/* Auth Buttons or Profile Icon */}
+        {isAuthenticated ? (
+            <>
+                <div className="text-right">
+                    <div className="text-sm font-medium text-slate-800 dark:text-slate-200">{user.name}</div>
+                    <div className="text-xs text-slate-500 dark:text-slate-400">{isAdmin ? 'Admin' : 'Usuario'}</div>
+                </div>
+                {/* Profile Icon - will be replaced with a proper component later */}
+                <img src={user.imageUrl} alt={user.name} className="w-10 h-10 rounded-full" />
+                <Button variant="outline" size="sm" onClick={logout} className="rounded-full w-10 h-10 p-0">
+                    <LogOut size={16} />
+                </Button>
+            </>
+        ) : (
+            <div className="flex items-center gap-2">
+                <Button asChild variant="outline"><Link to="/login">Iniciar Sesión</Link></Button>
+                <Button asChild><Link to="/registro">Registrarse</Link></Button>
+            </div>
+        )}
+    </div>
+</header>
 
                 <main>
                     <Outlet />
                 </main>
 
-                <footer className="mt-8 text-xs text-slate-500 dark:text-slate-400 text-center">
-                    *Mockup interactivo (v2.5 con Admin View).
-                </footer>
+                <Footer />
             </motion.div>
         </div>
     );

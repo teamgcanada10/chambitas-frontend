@@ -38,10 +38,7 @@ export default function Layout() {
                 <header className="mb-6 flex flex-col md:flex-row items-center justify-between gap-4 p-4 rounded-lg glassmorphism">
     {/* Logo and Slogan */}
     <Link to="/" className="flex items-center">
-        <img src="/Chambitas.png" alt="Chambitas Logo" className="w-24 h-24 sm:w-28 sm:h-28" />
-        <div className="ml-2">
-            <p className="text-sm md:text-base text-slate-600 dark:text-slate-400">Conectamos necesidades con oportunidades</p>
-        </div>
+        <img src="/Chambitas.png" alt="Chambitas Logo" className="w-32 h-32 sm:w-36 sm:h-36" />
     </Link>
 
     {/* Main Navigation and Auth/Profile Section */}
@@ -49,8 +46,9 @@ export default function Layout() {
         {/* New Navigation Links */}
         <nav className="flex flex-wrap justify-center items-center gap-2 sm:gap-4">
             <TabLink to="/">Inicio</TabLink>
-            <TabLink to="/chambas">Chambas</TabLink>
-            <TabLink to="/anuncios">Anuncios</TabLink>
+            <TabLink to="/chambas">Chambitas Terminadas</TabLink>
+            <TabLink to="/chambi-subastas">Chambi Subastas</TabLink>
+            <TabLink to="/anuncios">Últimas Chambitas</TabLink>
             <TabLink to="/top-chamberos">Top Chamberos</TabLink>
         </nav>
 

@@ -21,6 +21,12 @@ import Profile from './pages/Profile'; // Import the new page
 import Anuncios from './pages/Anuncios';
 import Chambas from './pages/Chambas';
 import TopChamberos from './pages/TopChamberos';
+import Terminos from './pages/Terminos';
+import Privacidad from './pages/Privacidad';
+import Cookies from './pages/Cookies';
+import Contacto from './pages/Contacto';
+import ChambiSubastas from './pages/ChambiSubastas';
+import PreguntasFrecuentes from './pages/PreguntasFrecuentes';
 
 function App() {
   return (
@@ -31,7 +37,13 @@ function App() {
         <Route index element={<Home />} />
         <Route path="anuncios" element={<Anuncios />} />
         <Route path="chambas" element={<Chambas />} />
+        <Route path="chambi-subastas" element={<ChambiSubastas />} />
         <Route path="top-chamberos" element={<TopChamberos />} />
+        <Route path="terminos" element={<Terminos />} />
+        <Route path="privacidad" element={<Privacidad />} />
+        <Route path="cookies" element={<Cookies />} />
+        <Route path="contacto" element={<Contacto />} />
+        <Route path="preguntas-frecuentes" element={<PreguntasFrecuentes />} />
 
         {/* Protected Routes for standard users */}
         <Route element={<ProtectedRoute />}>

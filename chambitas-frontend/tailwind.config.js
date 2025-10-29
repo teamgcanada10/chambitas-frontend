@@ -25,8 +25,8 @@ export default {
         },
       },
       backgroundImage: {
-        'modern-light': 'linear-gradient(to right, #f8fafc, #e0e7ff)',
-        'modern-dark': 'linear-gradient(to right, #0f172a, #1e1b4b)',
+        'modern-light': 'linear-gradient(to right, #ffffff, #dbeafe)',
+        'modern-dark': 'linear-gradient(to right, #020617, #1e1b4b)',
       },
       animation: {
         'float': 'float 6s ease-in-out infinite',

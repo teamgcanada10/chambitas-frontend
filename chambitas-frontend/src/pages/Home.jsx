@@ -4,93 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { CheckCircle2, Sparkles, ShieldCheck, Star, Coins, HeartHandshake, Briefcase, Quote, Wrench, Paintbrush } from "lucide-react";
 import { Card, CardHeader, CardContent, CardFooter, Button } from "../components/ui";
 import { GradientCard } from "../components/ui";
-
-
-const completedJobs = [
-  {
-    id: 1,
-    title: "Reparación de fuga de agua",
-    description: "Se reparó una fuga en la tubería principal de la cocina. Trabajo rápido y limpio.",
-    image: "https://images.unsplash.com/photo-1587997490283-5622c557ed08?w=500&h=500&fit=crop&q=80",
-    worker: "Juan P.",
-    jobsDone: 12,
-    rating: 4.8,
-  },
-  {
-    id: 2,
-    title: "Pintado de habitación",
-    description: "Se pintó una habitación de 12m² con dos capas de pintura plástica. Acabado perfecto.",
-    image: "https://images.unsplash.com/photo-1596495577881-e615b0e6a7e8?w=500&h=500&fit=crop&q=80",
-    worker: "Maria G.",
-    jobsDone: 8,
-    rating: 4.9,
-  },
-  {
-    id: 3,
-    title: "Instalación de cerradura",
-    description: "Instalación de cerradura de seguridad en puerta principal.",
-    image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=500&h=500&fit=crop&q=60",
-    worker: "Carlos M.",
-    jobsDone: 25,
-    rating: 4.7,
-  },
-  {
-    id: 4,
-    title: "Armado de mueble",
-    description: "Armado de ropero de 6 puertas. Se dejó todo limpio.",
-    image: "https://images.unsplash.com/photo-1600122312255-cb30b8dfa835?w=500&h=500&fit=crop&q=60",
-    worker: "Ana R.",
-    jobsDone: 6,
-    rating: 5.0,
-  },
-  {
-    id: 5,
-    title: "Limpieza de alfombra",
-    description: "Limpieza profunda de alfombra de sala. Quedó como nueva.",
-    image: "https://images.unsplash.com/photo-1516116216624-53e697320f34?w=500&h=500&fit=crop&q=60",
-    worker: "Luis F.",
-    jobsDone: 15,
-    rating: 4.6,
-  },
-];
-
-const jobAnnouncements = [
-  {
-    id: 1,
-    title: "Se necesita jardinero",
-    description: "Para mantenimiento de jardín pequeño en Miraflores.",
-    payment: "S/ 50 por hora",
-    image: "https://images.unsplash.com/photo-1558611848-73f7eb4001a1?w=500&h=500&fit=crop&q=80",
-  },
-  {
-    id: 2,
-    title: "Limpieza de departamento",
-    description: "Limpieza profunda de departamento de 2 habitaciones en San Isidro.",
-    payment: "S/ 120",
-    image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=500&h=500&fit=crop&q=80",
-  },
-  {
-    id: 3,
-    title: "Paseador de perros",
-    description: "Paseo de 1 hora para perro mediano en Surco.",
-    payment: "S/ 25 por paseo",
-    image: "https://images.unsplash.com/photo-1537151608828-3b2f2ba24c69?w=500&h=500&fit=crop&q=60",
-  },
-  {
-    id: 4,
-    title: "Clases de guitarra",
-    description: "Clases particulares de guitarra para principiantes.",
-    payment: "S/ 70 por hora",
-    image: "https://images.unsplash.com/photo-1550291652-6ea9114a47b1?w=500&h=500&fit=crop&q=60",
-  },
-  {
-    id: 5,
-    title: "Soporte técnico para laptop",
-    description: "Formateo e instalación de programas en laptop.",
-    payment: "S/ 150",
-    image: "https://images.unsplash.com/photo-1589422332093-3c2175a83823?w=500&h=500&fit=crop&q=60",
-  },
-];
+import { completedJobsData as completedJobs } from "../data/jobs";
+import { jobAnnouncementsData as jobAnnouncements } from "../data/announcements";
 
 const CompletedJob = ({ job }) => (
   <motion.div
@@ -336,7 +251,37 @@ export default function Home() {
                   </div>
                 </div>
               </motion.div>
-              
+
+              <motion.div 
+                initial={{ y: 50, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.7, delay: 0.2 }}
+                className="pt-12"
+              >
+                <h3 className="text-center text-3xl font-bold text-slate-900 dark:text-slate-100 mb-8 tracking-tight">Explora nuestras categorías</h3>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 text-center">
+                  <GradientCard className="p-4">
+                    <Wrench size={32} className="mx-auto text-primary-500 dark:text-primary-400"/>
+                    <p className="mt-2 font-semibold text-slate-800 dark:text-slate-200">Reparaciones</p>
+                  </GradientCard>
+                  <GradientCard className="p-4">
+                    <Paintbrush size={32} className="mx-auto text-primary-500 dark:text-primary-400"/>
+                    <p className="mt-2 font-semibold text-slate-800 dark:text-slate-200">Pintura</p>
+                  </GradientCard>
+                  <GradientCard className="p-4">
+                    <Briefcase size={32} className="mx-auto text-primary-500 dark:text-primary-400"/>
+                    <p className="mt-2 font-semibold text-slate-800 dark:text-slate-200">Limpieza</p>
+                  </GradientCard>
+                  <GradientCard className="p-4">
+                    <Sparkles size={32} className="mx-auto text-primary-500 dark:text-primary-400"/>
+                    <p className="mt-2 font-semibold text-slate-800 dark:text-slate-200">Mascotas</p>
+                  </GradientCard>
+                  <GradientCard className="p-4">
+                    <Coins size={32} className="mx-auto text-primary-500 dark:text-primary-400"/>
+                    <p className="mt-2 font-semibold text-slate-800 dark:text-slate-200">Clases</p>
+                  </GradientCard>
+                </div>
+              </motion.div>
           </CardContent>
           <CardFooter className="justify-center p-8 bg-transparent">
               <motion.div

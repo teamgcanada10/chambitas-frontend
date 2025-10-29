@@ -50,7 +50,7 @@ Ya cuento con la pintura y las herramientas necesarias, así que solo se requier
             <Card className={`rounded-2xl shadow-xl ${glass}`}>
                 <CardHeader className="flex flex-col gap-2">
                     <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400"><SprayCan size={18}/> <span>Nueva Chamba · Pintura</span></div>
-                    <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-50">Publica tu Chamba</h2>
+                    <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-50">Anuncia tu Chambita</h2>
                 </CardHeader>
                 <CardContent className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-4">
@@ -85,7 +85,7 @@ Ya cuento con la pintura y las herramientas necesarias, así que solo se requier
                             <p className="text-xs text-slate-500 dark:text-slate-400">Basado en trabajos similares y reputación promedio.</p>
                             <div className="mt-4"><Label className="text-xs">Ajustar rango sugerido (demo)</Label><Slider value={range} min={50} max={150} step={5} onValueChange={setRange} className="mt-2" /></div>
                         </div>
-                        <div className="flex items-center justify-end"><Button className="rounded-2xl w-full" onClick={() => navigate('/chamba/123')}>Publicar Chamba</Button></div>
+                        <div className="flex items-center justify-end"><Button className="rounded-2xl w-full" onClick={() => navigate('/chamba/123')}>Anunciar Chambita</Button></div>
                     </div>
                 </CardContent>
             </Card>

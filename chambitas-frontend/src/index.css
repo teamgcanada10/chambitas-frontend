@@ -8,3 +8,19 @@ body {
   animation: gradient-bg 15s ease infinite;
   transition: background-color 0.5s ease;
 }
+
+/* Custom dual color gradient background for header */
+.header-gradient-bg {
+  background: linear-gradient(90deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%);
+  /* Adjust colors as needed for contrast */
+  border-radius: 0.5rem; /* match rounded-lg */
+  padding: 1rem; /* match p-4 */
+  box-shadow: 0 4px 6px rgba(59, 130, 246, 0.3);
+  color: white;
+}
+
+.glassmorphism {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Building } from 'lucide-react';
 
 const Footer = () => {
@@ -7,27 +8,23 @@ const Footer = () => {
       <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-xl flex items-center justify-center shadow-md">
-              <Building className="text-primary-500" />
-            </div>
-            <div>
-              <h1 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">Chambitas</h1>
-              <p className="text-sm text-slate-600 dark:text-slate-400">Tu marketplace de confianza</p>
-            </div>
+            <Link to="/">
+              <img src="/Chambitas.png" alt="Chambitas Logo" className="w-24 h-24" />
+            </Link>
           </div>
           <div>
             <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Legal</h3>
             <ul className="mt-4 space-y-2">
-              <li><a href="#" className="text-slate-600 dark:text-slate-400 hover:text-primary-500">Términos y Condiciones</a></li>
-              <li><a href="#" className="text-slate-600 dark:text-slate-400 hover:text-primary-500">Política de Privacidad</a></li>
-              <li><a href="#" className="text-slate-600 dark:text-slate-400 hover:text-primary-500">Política de Cookies</a></li>
+              <li><Link to="/terminos" className="text-slate-600 dark:text-slate-400 hover:text-primary-500">Términos y Condiciones</Link></li>
+              <li><Link to="/privacidad" className="text-slate-600 dark:text-slate-400 hover:text-primary-500">Política de Privacidad</Link></li>
+              <li><Link to="/cookies" className="text-slate-600 dark:text-slate-400 hover:text-primary-500">Política de Cookies</Link></li>
             </ul>
           </div>
           <div>
             <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Contáctanos</h3>
             <ul className="mt-4 space-y-2">
               <li><a href="mailto:soporte@chambitas.com" className="text-slate-600 dark:text-slate-400 hover:text-primary-500">soporte@chambitas.com</a></li>
-              <li><a href="#" className="text-slate-600 dark:text-slate-400 hover:text-primary-500">Preguntas Frecuentes</a></li>
+              <li><Link to="/preguntas-frecuentes" className="text-slate-600 dark:text-slate-400 hover:text-primary-500">Preguntas Frecuentes</Link></li>
             </ul>
           </div>
           <div>

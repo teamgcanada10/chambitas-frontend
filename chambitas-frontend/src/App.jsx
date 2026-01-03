@@ -27,6 +27,7 @@ import Cookies from './pages/Cookies';
 import Contacto from './pages/Contacto';
 import ChambiSubastas from './pages/ChambiSubastas';
 import PreguntasFrecuentes from './pages/PreguntasFrecuentes';
+import TestTailwind from './pages/TestTailwind';
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
         <Route path="cookies" element={<Cookies />} />
         <Route path="contacto" element={<Contacto />} />
         <Route path="preguntas-frecuentes" element={<PreguntasFrecuentes />} />
+        <Route path="test-tailwind" element={<TestTailwind />} />
 
         {/* Protected Routes for standard users */}
         <Route element={<ProtectedRoute />}>

@@ -9,7 +9,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="flex items-center gap-3">
             <Link to="/">
-              <img src="/Chambitas.png" alt="Chambitas Logo" className="w-24 h-24" />
+              <img src="/Chambitas.png" alt="Chambitas Logo" className="w-32 h-32 hover:scale-105 transition-transform duration-300" />
             </Link>
           </div>
           <div>

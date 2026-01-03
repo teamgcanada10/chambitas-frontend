@@ -62,6 +62,15 @@ export function AuthProvider({ children }) {
 
             if (response.ok) {
                 const { token, user } = data;
+                
+                // ✅ VALIDACIÓN DE SEGURIDAD
+                if (!user.isActive) {
+                    return { success: false, message: 'Tu cuenta ha sido desactivada. Contacta al administrador.' };
+                }
+                if (user.isBlocked) {
+                    return { success: false, message: 'Tu cuenta ha sido bloqueada por violación de políticas.' };
+                }
+                
                 localStorage.setItem('chambitas-token', token);
                 setUser(user);
                 setIsAuthenticated(true);
@@ -98,16 +107,90 @@ export function AuthProvider({ children }) {
         }
     }
 
+    // Helpers
+    const getToken = () => localStorage.getItem('chambitas-token');
+
+    // Refresh current user from backend
+    const refreshUser = async () => {
+        const token = getToken();
+        if (!token) return;
+        try {
+            const response = await fetch(`${API_URL}/auth/me`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            if (response.ok) {
+                const userData = await response.json();
+                setUser(userData);
+                setIsAuthenticated(true);
+            }
+        } catch (error) {
+            console.error("Error refreshing user:", error);
+        }
+    };
+
+    // Update profile basic data (dni, phone, location, bio, name)
+    const updateProfile = async (updates) => {
+        const token = getToken();
+        try {
+            const response = await fetch(`${API_URL}/profile`, {
+                method: 'PUT',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(updates)
+            });
+            const data = await response.json();
+            if (response.ok) {
+                // data.user is the updated user from server
+                setUser(data.user ?? user);
+                return { success: true, data };
+            }
+            return { success: false, message: data.message || 'No se pudo actualizar el perfil.' };
+        } catch (error) {
+            console.error("updateProfile error:", error);
+            return { success: false, message: 'Error de conexión con el servidor.' };
+        }
+    };
+
+    // Switch active profile between worker/advertiser
+    const switchProfile = async (profile) => {
+        const token = getToken();
+        try {
+            const response = await fetch(`${API_URL}/profile/switch`, {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ profile })
+            });
+            const data = await response.json();
+            if (response.ok) {
+                await refreshUser();
+                return { success: true, data };
+            }
+            return { success: false, message: data.message || 'No se pudo cambiar el perfil.' };
+        } catch (error) {
+            console.error("switchProfile error:", error);
+            return { success: false, message: 'Error de conexión con el servidor.' };
+        }
+    }
+
     const value = { 
         user,
         setUser,
+        token: getToken(),
         isAuthenticated,
         isAdmin: user?.roles.includes('admin') || false,
         activeRole,
         login,
         logout,
         register,
-        selectRole
+        selectRole,
+        refreshUser,
+        updateProfile,
+        switchProfile
     };
 
     return (
